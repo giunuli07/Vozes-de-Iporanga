@@ -312,7 +312,13 @@
             <ul class="tags"><li>Culinária</li><li>Artesanato</li></ul>
             <div class="viv-actions">
               <button class="btn primary" data-open="book" data-title="Iporanga História e Sabores">Agendar</button>
-              <button class="btn outline" data-open="info" data-title="Iporanga História e Sabores" data-text="Roteiro guiado que integra história, artesanato e degustação em restaurante tradicional.">Detalhes</button>
+               <div class="card-actions">
+          <button class="btn outline show-recipe" 
+          <button class="btn outline" data-open="info" data-title="Iporanga História e Sabores" data-text="Roteiro guiado que integra história, artesanato e degustação em restaurante tradicional.">Detalhes</button>
+          </button>
+        </div>
+        <div class="recipe-detail" hidden></div>
+            </div>
             </div>
           </article>
 
@@ -336,6 +342,37 @@
             </div>
           </article>
         </div>
+         <!-- Script interativo da seção -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.show-recipe').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.card-body');
+          const detail = card.querySelector('.recipe-detail');
+          const title = btn.dataset.title;
+          const text = btn.dataset.text;
+
+          if (detail.hidden) {
+            detail.innerHTML = `
+              <div class="recipe-box">
+                <h5>${title}</h5>
+                <p>${text}</p>
+                <button class="btn small outline hide-recipe">Fechar</button>
+              </div>
+            `;
+            detail.hidden = false;
+
+            // botão de fechar
+            detail.querySelector('.hide-recipe').addEventListener('click', () => {
+              detail.hidden = true;
+            });
+          } else {
+            detail.hidden = true;
+          }
+        });
+      });
+    });
+  </script>
       </section>
 
       <!-- FESTAS -->
@@ -562,4 +599,5 @@
   </script>
 </body>
 </html>
+
 
