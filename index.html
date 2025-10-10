@@ -680,12 +680,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 Seu navegador não suporta vídeo HTML5.
               </video>`;
     }
-    // link para documento (Google Docs, PDFs, etc.)
-else if (src.includes("docs.google.com")) {
-  embed = `<a href="${src}" target="_blank" style="display:inline-block; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:5px;">
-             Abrir Documento
-           </a>`;
-}
+   // Google Drive – visualizar arquivo no iframe
+else if (src.includes("drive.google.com/file/d/")) {
+  const fileId = src.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1];
+  if (fileId) {
+    embed = `<iframe src="https://drive.google.com/file/d/${fileId}/preview" 
+                    width="100%" height="480" allow="autoplay" 
+                    style="border:none; border-radius:10px;"></iframe>`;
+  } else {
+    embed = `<p>⚠️ Link do Google Drive inválido.</p>`;
+  }
 
     else {
       embed = `<p>⚠️ Tipo de mídia não reconhecido.</p>`;
@@ -718,3 +722,4 @@ else if (src.includes("docs.google.com")) {
 </body>
 
 </html>
+
