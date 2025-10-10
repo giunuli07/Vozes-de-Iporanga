@@ -95,7 +95,7 @@
            <article class="card media-card">
             <div class="card-media audio-placeholder" data-title="Zé Nuli — Memórias da Roça">
               <div class="wave"></div>
-              <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="_Entrevista-José-Nuli..mp3">▶ Ouvir</button>
+              <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="https://drive.google.com/file/d/1rIr_IIPqPTWfl-iRvIOWJJJmNnB5M1yf/view?usp=sharing">▶ Ouvir</button>
             </div>
             <div class="card-body">
               <h4>José Nuli — Memórias da Roça</h4>
@@ -680,13 +680,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 Seu navegador não suporta vídeo HTML5.
               </video>`;
     }
-    // áudio local
-    else if (src.endsWith(".mp3") || src.endsWith(".wav")) {
-      embed = `<audio controls autoplay style="width:90%;">
-                <source src="${src}">
-                Seu navegador não suporta áudio HTML5.
-              </audio>`;
-    }
+    // link para documento (Google Docs, PDFs, etc.)
+else if (src.includes("docs.google.com")) {
+  embed = `<a href="${src}" target="_blank" style="display:inline-block; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:5px;">
+             Abrir Documento
+           </a>`;
+}
+
     else {
       embed = `<p>⚠️ Tipo de mídia não reconhecido.</p>`;
     }
@@ -716,4 +716,5 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 </body>
+
 </html>
