@@ -207,9 +207,9 @@ body{
 .vivencia-card .vivencia-acoes button {
   flex: 1;
 }
-  gap:var(--gap);
-  background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-  border-bottom:1px solid rgba(20,40,20,0.04);
+  gap:var(--gap)
+  background:linear-gradient(180deg rgba(255,255,255,0.95) rgba(255,255,255,0.85));
+  border-bottom  solid rgba (20,40,20,0.04);
 
 .brand{display:flex;align-items:center;gap:0.8rem}
 .logo{border-radius:10px;flex:0 0 56px}

@@ -93,13 +93,13 @@
         <div class="card-grid">
           <!-- Card 1: audio simulated -->
            <article class="card media-card">
-            <div class="card-media audio-placeholder" data-title="Dona Maria — Memórias da Roça">
+            <div class="card-media audio-placeholder" data-title="Zé Nuli — Memórias da Roça">
               <div class="wave"></div>
-              <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="https://youtu.be/LyJRfYAMCf4?si=OK41EozRQ2wSc7tY">▶ Ouvir</button>
+              <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="_Entrevista-José-Nuli..mp3">▶ Ouvir</button>
             </div>
             <div class="card-body">
-              <h4>Dona Maria — Memórias da Roça</h4>
-              <p class="muted">Relato sobre festas, trabalho coletivo e os saberes passados pelas avós. (8 min)</p>
+              <h4>José Nuli — Memórias da Roça</h4>
+              <p class="muted">Relato sobre vida na roça, costumes e a antiga Iporanga (3 min)</p>
               <div class="card-actions">
                 <button class="btn outline" data-open="info" data-title="Dona Maria" data-text="Depoimento gravado em 2024 durante a roda de histórias.">ℹ Mais</button>
                 <button class="btn" data-open="share" data-title="Dona Maria">Compartilhar</button>
@@ -109,13 +109,13 @@
 
           <!-- Card 2 -->
           <article class="card media-card">
-            <div class="card-media video-placeholder" data-title="Roda de Histórias — São Benedito">
+            <div class="card-media video-placeholder" data-title="Mini documentário — Praia Grande">
               <div class="poster">🎬</div>
-              <button class="play-btn" data-audio="roda-sao-benedito" data-open="listen" data-src="https://youtu.be/LyJRfYAMCf4?si=OK41EozRQ2wSc7tY">▶ Reproduzir</button>
+             <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="https://www.youtube.com/watch?v=yhst_IxGQPY">▶ Ouvir</button>
             </div>
             <div class="card-body">
-              <h4>Roda de Histórias — Festa de São Benedito</h4>
-              <p class="muted">Registro de cantos e memórias sobre a festa, com narração dos mais velhos. (12 min)</p>
+              <h4>Mini documentário — Quilombo Praia Grande</h4>
+              <p class="muted">Registro de cantos e memórias sobre a Romaria, com fotos e registros. (4 min)</p>
               <div class="card-actions">
                 <button class="btn outline" data-open="info" data-title="Roda de Histórias" data-text="Gravação com curadoria local.">ℹ Mais</button>
                 <button class="btn" data-open="share" data-title="Roda de Histórias">Compartilhar</button>
@@ -127,11 +127,11 @@
           <article class="card media-card">
             <div class="card-media audio-placeholder" data-title="Seu Arabelo — Experiências da Roça">
               <div class="wave"></div>
-              <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="https://youtu.be/LyJRfYAMCf4?si=OK41EozRQ2wSc7tY">▶ Ouvir</button>
+             <button class="play-btn" data-audio="dona-maria" data-open="listen" data-src="https://www.youtube.com/watch?v=8IoTAtvgRc4">▶ Ouvir</button>
             </div>
-            <div class="card-body">
-              <h4>Seu Arabelo — Experiências da Roça</h4>
-              <p class="muted">Relato sobre festas, trabalho coletivo e os saberes passados pelas avós. (8 min)</p>
+             <div class="card-body">
+              <h4>Quilombo Ivaporunduva - "A História Narrada Por Nós"</h4>
+              <p class="muted">Depoimentos sobre a formação e ações do grupo de mulheres na luta por direitos. (24 min)</p>
               <div class="card-actions">
                 <button class="btn outline" data-open="info" data-title="Dona Maria" data-text="Depoimento gravado em 2024 durante a roda de histórias.">ℹ Mais</button>
                 <button class="btn" data-open="share" data-title="Dona Maria">Compartilhar</button>
@@ -641,45 +641,79 @@
   .vivencia-popup h3 { margin-top: 0; color: #2B8A3E; }
   @keyframes aparecer { from { opacity: 0; transform: scale(0.9);} to { opacity: 1; transform: scale(1);} }
 </style>
- </script>
-
- <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Seleciona todos os botões "Ouvir"
-  document.querySelectorAll('[data-open="listen"]').forEach(botao => {
-    botao.addEventListener("click", () => {
-      // Pega o link de áudio/vídeo do botão
-      const src = botao.dataset.src || "https://www.youtube.com/embed/5qap5aO4i9A"; 
-      // 👆 coloque aqui um link padrão (pode ser YouTube ou áudio direto)
-      
-      // Cria o player flutuante
-      const overlay = document.createElement("div");
-      overlay.className = "midia-overlay";
-      overlay.innerHTML = `
-        <div class="midia-popup">
-          <iframe width="560" height="315" 
-            src="${src}?autoplay=1"
-            title="Reproduzindo história"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-          <button class="btn outline fechar-midia">Fechar</button>
-        </div>
-      `;
-      document.body.appendChild(overlay);
+  const historias = document.querySelector("#historias");
+  if (!historias) return;
 
-      // Fechar o player
-      overlay.querySelector(".fechar-midia").addEventListener("click", () => overlay.remove());
-      overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+  // cria o overlay da mídia (apenas uma vez)
+  const midiaOverlay = document.createElement("div");
+  midiaOverlay.className = "midia-overlay";
+  midiaOverlay.style.display = "none";
+  midiaOverlay.innerHTML = `
+    <div class="midia-popup">
+      <div class="midia-container"></div>
+      <button class="btn fechar-midia">Fechar</button>
+    </div>
+  `;
+  document.body.appendChild(midiaOverlay);
+
+  // função para abrir a mídia
+  function abrirMidia(src, titulo) {
+    let embed = "";
+
+    // YouTube
+    if (src.includes("youtube.com") || src.includes("youtu.be")) {
+      const videoId = src
+        .replace("https://youtu.be/", "")
+        .replace("https://www.youtube.com/watch?v=", "")
+        .split("?")[0];
+      embed = `<iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                title="${titulo}" frameborder="0" 
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+    // vídeo local
+    else if (src.endsWith(".mp4") || src.endsWith(".webm") || src.endsWith(".ogg")) {
+      embed = `<video controls autoplay style="max-width:90vw; max-height:60vh; border-radius:10px;">
+                <source src="${src}" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+              </video>`;
+    }
+    // áudio local
+    else if (src.endsWith(".mp3") || src.endsWith(".wav")) {
+      embed = `<audio controls autoplay style="width:90%;">
+                <source src="${src}">
+                Seu navegador não suporta áudio HTML5.
+              </audio>`;
+    }
+    else {
+      embed = `<p>⚠️ Tipo de mídia não reconhecido.</p>`;
+    }
+
+    const container = midiaOverlay.querySelector(".midia-container");
+    container.innerHTML = `<h3 style="color:#fff;margin-bottom:0.5rem;">${titulo}</h3>${embed}`;
+    midiaOverlay.style.display = "flex";
+  }
+
+  // adiciona evento aos botões de ouvir
+  historias.querySelectorAll(".play-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const src = btn.dataset.src;
+      const titulo = btn.closest(".card")?.querySelector("h4")?.textContent || "História";
+      abrirMidia(src, titulo);
     });
+  });
+
+  // fechar o modal
+  midiaOverlay.addEventListener("click", e => {
+    if (e.target.classList.contains("midia-overlay") || e.target.classList.contains("fechar-midia")) {
+      midiaOverlay.style.display = "none";
+      midiaOverlay.querySelector(".midia-container").innerHTML = "";
+    }
   });
 });
 </script>
 
-
 </body>
 </html>
-
-
-
-
