@@ -452,6 +452,34 @@
           </article>
         </div>
       </section>
+       <section id="radio-cards" style="display: none;">
+  <h2>🎧 Programas da Rádio</h2>
+
+  <div class="radio-cards-container">
+    <div class="radio-card">
+      <img src="imagens/programa1.jpg" alt="Programa 1">
+      <h3>Vozes da Terra</h3>
+      <p>Entrevistas com moradores e artistas da comunidade.</p>
+      <button class="btn">▶ Ouvir Episódio</button>
+    </div>
+
+    <div class="radio-card">
+      <img src="imagens/programa2.jpg" alt="Programa 2">
+      <h3>Memórias Quilombolas</h3>
+      <p>Histórias e tradições contadas pelos mais velhos.</p>
+      <button class="btn">▶ Ouvir Episódio</button>
+    </div>
+
+    <div class="radio-card">
+      <img src="imagens/programa3.jpg" alt="Programa 3">
+      <h3>Ritmos da Roça</h3>
+      <p>Músicas e sonoridades do interior de Iporanga.</p>
+      <button class="btn">▶ Ouvir Episódio</button>
+    </div>
+  </div>
+
+  <button class="btn outline voltar-radio">⬅ Voltar</button>
+</section>
 
       <!-- SOBRE & PARCEIROS -->
       <section id="sobre" class="tab-content">
@@ -744,8 +772,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const ouvirBtn = document.querySelector(".ouvir-radio");
+  const radioMain = document.querySelector("#radio");
+  const radioCards = document.querySelector("#radio-cards");
+  const voltarBtn = document.querySelector(".voltar-radio");
+
+  if (ouvirBtn && radioMain && radioCards && voltarBtn) {
+    ouvirBtn.addEventListener("click", () => {
+      radioMain.style.display = "none";
+      radioCards.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    voltarBtn.addEventListener("click", () => {
+      radioCards.style.display = "none";
+      radioMain.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+});
+</script>
 </body>
 </html>
+
 
 
 
