@@ -750,29 +750,22 @@ else if (src.includes("drive.google.com/file/d/")) {
   });
 });
 </script>
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const ouvirBtn = document.querySelector(".ouvir-radio");
-  const radioMain = document.querySelector("#radio");
-  const radioCards = document.querySelector("#radio-cards");
-  const voltarBtn = document.querySelector(".voltar-radio");
+<!-- Seção da rádio principal -->
+<section id="radio">
+  ...
+  <button class="btn ouvir-radio">▶ Ouvir</button>
+</section>
 
-  // abrir os cards da rádio
-  ouvirBtn.addEventListener("click", () => {
-    radioMain.style.display = "none";
-    radioCards.style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+<!-- Seção com os cards (começa escondida) -->
+<section id="radio-cards" style="display:none;">
+  ...
+  <button class="btn outline voltar-radio">⬅ Voltar</button>
+</section>
 
-  // voltar pra tela inicial da rádio
-  voltarBtn.addEventListener("click", () => {
-    radioCards.style.display = "none";
-    radioMain.style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
-</script>
-  <script>
+<!-- CSS opcional aqui -->
+
+<!-- Coloque o script no final do HTML -->
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const ouvirBtn = document.querySelector(".ouvir-radio");
   const radioMain = document.querySelector("#radio");
@@ -791,11 +784,15 @@ document.addEventListener("DOMContentLoaded", () => {
       radioMain.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  } else {
+    console.warn("Algum botão não foi encontrado no DOM.");
   }
 });
 </script>
+
 </body>
 </html>
+
 
 
 
