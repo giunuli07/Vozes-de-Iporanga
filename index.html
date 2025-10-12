@@ -427,37 +427,10 @@
                 <h4>Vozes de Iporanga</h4>
                 <p class="muted">Entrevista com liderança local — 20 min</p>
               </div>
-          
+            </div>
             <div class="pod-actions">
-         <button class="btn ouvir-radio">▶ Ouvir</button>
+              <button class="btn" data-audio="vozes-iporanga">▶ Ouvir</button>
               <button class="btn outline" data-open="info" data-title="Vozes de Iporanga" data-text="Programa semanal com entrevistas e memórias.">ℹ Mais</button>
-            <section id="radio-cards" style="display:none;">
-               </div> 
-                </section>
-       <section id="radio-cards" style="display: none;">
-  <h2>🎧 Programas da Rádio</h2>
-
-  <div class="radio-cards-container">
-    <div class="radio-card">
-      <img src="imagens/programa1.jpg" alt="Programa 1">
-      <h3>Vozes da Terra</h3>
-      <p>Entrevistas com moradores e artistas da comunidade.</p>
-      <button class="btn">▶ Ouvir Episódio</button>
-    </div>
-
-    <div class="radio-card">
-      <img src="imagens/programa2.jpg" alt="Programa 2">
-      <h3>Memórias Quilombolas</h3>
-      <p>Histórias e tradições contadas pelos mais velhos.</p>
-      <button class="btn">▶ Ouvir Episódio</button>
-    </div>
-
-    <div class="radio-card">
-      <img src="imagens/programa3.jpg" alt="Programa 3">
-      <h3>Ritmos da Roça</h3>
-      <p>Músicas e sonoridades do interior de Iporanga.</p>
-      <button class="btn">▶ Ouvir Episódio</button>
-
             </div>
           </article>
 
@@ -475,11 +448,18 @@
             </div>
           </article>
         </div>
-    </div>
-  </div>
+      </section>
+      <!-- SEÇÃO DE ÁUDIOS -->
+<section id="radio-audios" class="tab-content" style="display:none;">
+  <h2>🎧 Áudios do Programa</h2>
+  <p class="muted">Ouça os episódios, entrevistas e músicas da comunidade.</p>
 
-  <button class="btn outline voltar-radio">⬅ Voltar</button>
-</section>
+  <div class="card-grid" id="audio-list"></div>
+
+  <div style="text-align:center;margin-top:2rem;">
+    <button id="voltar-radio" class="btn outline">⬅ Voltar</button>
+  </div>
+ </section>
 
       <!-- SOBRE & PARCEIROS -->
       <section id="sobre" class="tab-content">
@@ -622,56 +602,7 @@
     });
 
   </script>
-<script>
-  // Interação simples dos botões "Detalhes" da seção Vivências
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("#vivencias [data-open='info']").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const titulo = btn.dataset.title || "Vivência";
-        const texto = btn.dataset.text || "Informações não disponíveis.";
 
-        // Cria um alerta estilizado simples
-        const caixa = document.createElement("div");
-        caixa.className = "vivencia-alert";
-        caixa.innerHTML = `
-          <div class="vivencia-popup">
-            <h3>${titulo}</h3>
-            <p>${texto}</p>
-            <button class="btn outline fechar-popup">Fechar</button>
-          </div>
-        `;
-        document.body.appendChild(caixa);
-
-        // Fecha o popup ao clicar em "Fechar" ou fora dele
-        caixa.querySelector(".fechar-popup").addEventListener("click", () => caixa.remove());
-        caixa.addEventListener("click", e => { if (e.target === caixa) caixa.remove(); });
-      });
-    });
-  });
-</script>
-
-<style>
-  .vivencia-alert {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .vivencia-popup {
-    background: #fff;
-    border-radius: 12px;
-    padding: 24px;
-    max-width: 420px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    animation: aparecer 0.3s ease;
-  }
-  .vivencia-popup h3 { margin-top: 0; color: #2B8A3E; }
-  @keyframes aparecer { from { opacity: 0; transform: scale(0.9);} to { opacity: 1; transform: scale(1);} }
-</style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const historias = document.querySelector("#historias");
@@ -711,19 +642,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 Seu navegador não suporta vídeo HTML5.
               </video>`;
     }
-   // Google Drive – visualizar arquivo no iframe
+    // áudio local
+    else if (src.endsWith(".mp3") || src.endsWith(".wav")) {
+      embed = `<audio controls autoplay style="width:90%;">
+                <source src="${src}">
+                Seu navegador não suporta áudio HTML5.
+              </audio>`;
+    }
+ // Google Drive – visualizar arquivo no iframe
 else if (src.includes("drive.google.com/file/d/")) {
   const fileId = src.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1];
   if (fileId) {
     embed = `<iframe src="https://drive.google.com/file/d/${fileId}/preview" 
                     width="100%" height="480" allow="autoplay" 
                     style="border:none; border-radius:10px;"></iframe>`;
-  } else {
-    embed = `<p>⚠️ Link do Google Drive inválido.</p>`;
   }
-  }
-
-    else {
+}
+else {
       embed = `<p>⚠️ Tipo de mídia não reconhecido.</p>`;
     }
 
@@ -750,60 +685,361 @@ else if (src.includes("drive.google.com/file/d/")) {
   });
 });
 </script>
-<!-- Seção da rádio principal -->
-<section id="radio">
-  ...
-  <button class="btn ouvir-radio">▶ Ouvir</button>
-</section>
-
-<!-- Seção com os cards (começa escondida) -->
-<section id="radio-cards" style="display:none;">
-  ...
-  <button class="btn outline voltar-radio">⬅ Voltar</button>
-</section>
-
-<!-- CSS opcional aqui -->
-
-<!-- Coloque o script no final do HTML -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const ouvirBtn = document.querySelector(".ouvir-radio");
-  const radioMain = document.querySelector("#radio");
-  const radioCards = document.querySelector("#radio-cards");
-  const voltarBtn = document.querySelector(".voltar-radio");
+  const radioTab = document.querySelector("#radio");
+  const audioTab = document.querySelector("#radio-audios");
+  const listaAudios = document.querySelector("#audio-list");
+  const voltarBtn = document.querySelector("#voltar-radio");
 
-  if (ouvirBtn && radioMain && radioCards && voltarBtn) {
-    ouvirBtn.addEventListener("click", () => {
-      radioMain.style.display = "none";
-      radioCards.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+  // 🎙️ Programas e áudios correspondentes
+  const programas = {
+    "vozes-iporanga": [
+      { titulo: "História do Quilombo Praia Grande", src: "https://www.w3schools.com/html/horse.mp3", descricao: "Relato sobre a formação da comunidade." },
+      { titulo: "Entrevista com Dona Maria", src: "https://www.w3schools.com/html/horse.mp3", descricao: "Memórias da tradição oral e cantos locais." }
+    ],
+    "musica-quilombola": [
+      { titulo: "Toque de Tambor", src: "https://www.w3schools.com/html/horse.mp3", descricao: "Cantos e toques tradicionais de Iporanga." },
+      { titulo: "Canto da Serra", src: "https://www.w3schools.com/html/horse.mp3", descricao: "Apresentação de música tradicional." }
+    ]
+  };
 
-    voltarBtn.addEventListener("click", () => {
-      radioCards.style.display = "none";
-      radioMain.style.display = "block";
+  // 🟢 Clique em "Ouvir" dos cards principais
+  document.querySelectorAll("#radio .btn[data-audio]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const programa = btn.dataset.audio;
+      const audios = programas[programa];
+      if (!audios) return;
+
+      // Limpa e monta os cards de áudio
+      listaAudios.innerHTML = "";
+      audios.forEach(a => {
+        const card = document.createElement("article");
+        card.className = "card podcast-card";
+        card.innerHTML = `
+          <div class="podcast-meta">
+            <div class="pod-icon">🎵</div>
+            <div>
+              <h4>${a.titulo}</h4>
+              <p class="muted">${a.descricao}</p>
+            </div>
+          </div>
+          <div class="pod-actions">
+            <button class="btn play-audio" data-src="${a.src}">▶ Ouvir</button>
+          </div>
+          <audio controls style="display:none;width:100%;">
+            <source src="${a.src}" type="audio/mpeg">
+          </audio>
+        `;
+        listaAudios.appendChild(card);
+      });
+
+      // Mostra a nova seção
+      radioTab.style.display = "none";
+      audioTab.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Eventos dos botões "Ouvir" dos áudios
+      document.querySelectorAll(".play-audio").forEach(playBtn => {
+        playBtn.addEventListener("click", () => {
+          const audioEl = playBtn.closest(".card").querySelector("audio");
+          document.querySelectorAll("audio").forEach(a => a.pause());
+          audioEl.style.display = "block";
+          audioEl.play();
+        });
+      });
     });
-  } else {
-    console.warn("Algum botão não foi encontrado no DOM.");
+  });
+
+  // 🔙 Botão "Voltar"
+  voltarBtn.addEventListener("click", () => {
+    audioTab.style.display = "none";
+    radioTab.style.display = "block";
+    document.querySelectorAll("audio").forEach(a => a.pause());
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Cria overlay/modal para os "Mais"
+  const maisOverlay = document.createElement("div");
+  maisOverlay.className = "mais-overlay";
+  maisOverlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+  `;
+
+  const maisPopup = document.createElement("div");
+  maisPopup.style.cssText = `
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    position: relative;
+  `;
+  
+  const maisTitulo = document.createElement("h3");
+  maisTitulo.style.color = "#2B8A3E";
+  maisPopup.appendChild(maisTitulo);
+
+  const maisTexto = document.createElement("p");
+  maisPopup.appendChild(maisTexto);
+
+  const fecharBtn = document.createElement("button");
+  fecharBtn.className = "btn outline";
+  fecharBtn.textContent = "Fechar";
+  fecharBtn.style.marginTop = "12px";
+  maisPopup.appendChild(fecharBtn);
+
+  maisOverlay.appendChild(maisPopup);
+  document.body.appendChild(maisOverlay);
+
+  // Função para abrir modal
+  function abrirMais(btn) {
+    const titulo = btn.dataset.title || "Mais informações";
+    const texto = btn.dataset.text || "Informações não especificadas.";
+
+    maisTitulo.textContent = titulo;
+    maisTexto.textContent = texto;
+    maisOverlay.style.display = "flex";
+  }
+
+  // Adiciona evento a todos os botões "Mais"
+  document.querySelectorAll("[data-open='info']").forEach(btn => {
+    btn.addEventListener("click", () => abrirMais(btn));
+  });
+
+  // Fechar modal
+  fecharBtn.addEventListener("click", () => maisOverlay.style.display = "none");
+  maisOverlay.addEventListener("click", e => {
+    if (e.target === maisOverlay) maisOverlay.style.display = "none";
+  });
+
+  // Fechar com ESC
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") maisOverlay.style.display = "none";
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Cria a área flutuante se não existir
+  let projectPanel = document.querySelector(".project-panel");
+  if (!projectPanel) {
+    projectPanel = document.createElement("div");
+    projectPanel.className = "project-panel";
+    projectPanel.style.cssText = `
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    `;
+
+    const panelContent = document.createElement("div");
+    panelContent.style.cssText = `
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    `;
+
+    const panelTitle = document.createElement("h3");
+    panelTitle.style.color = "#2B8A3E";
+
+    const panelText = document.createElement("p");
+
+    const actionsDiv = document.createElement("div");
+    actionsDiv.style.marginTop = "16px";
+    actionsDiv.style.display = "flex";
+    actionsDiv.style.justifyContent = "center";
+    actionsDiv.style.gap = "12px";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "btn outline";
+    closeBtn.textContent = "Fechar";
+
+    panelContent.appendChild(panelTitle);
+    panelContent.appendChild(panelText);
+    panelContent.appendChild(actionsDiv);
+    panelContent.appendChild(closeBtn);
+    projectPanel.appendChild(panelContent);
+    document.body.appendChild(projectPanel);
+
+    // função para abrir painel
+    function abrirProjeto(title, text, showAgendar = false) {
+      panelTitle.textContent = title;
+      panelText.textContent = text;
+
+      // limpar ações anteriores
+      actionsDiv.innerHTML = "";
+
+      if (showAgendar) {
+        const agendarBtn = document.createElement("button");
+        agendarBtn.className = "btn primary";
+        agendarBtn.textContent = "Agendar";
+        agendarBtn.addEventListener("click", () => {
+          alert("Formulário de agendamento abriria aqui (ou redirecionaria).");
+        });
+        actionsDiv.appendChild(agendarBtn);
+      }
+
+      projectPanel.style.display = "flex";
+    }
+
+    // fechar painel
+    closeBtn.addEventListener("click", () => projectPanel.style.display = "none");
+    projectPanel.addEventListener("click", e => { if (e.target === projectPanel) projectPanel.style.display = "none"; });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") projectPanel.style.display = "none"; });
+
+    // botões do card hero
+    const verProjetoBtn = document.querySelector(".hero-card .btn.small");
+    const parceirosBtn = document.querySelector(".hero-card .btn.small.outline");
+
+    if (verProjetoBtn) {
+      verProjetoBtn.addEventListener("click", () => {
+        abrirProjeto(
+          "Vivências do Alto Ribeira",
+          "Projeto de visitas técnicas e culturais às comunidades quilombolas de Iporanga. Experiências, memórias e registro comunitário.",
+          true // mostra botão agendar
+        );
+      });
+    }
+
+    if (parceirosBtn) {
+      parceirosBtn.addEventListener("click", () => {
+        abrirProjeto(
+          "Parceiros do Projeto",
+          "Associações Quilombolas de Iporanga, IFSP – Campus Registro, Instituto Socioambiental (ISA), Fundação Cultural Palmares e demais parceiros locais.",
+          false // não precisa agendar
+        );
+      });
+    }
   }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const main = document.getElementById("mainContent");
 
+  // função para criar a seção de agendamento de vivência/projeto
+  function criarSecaoAgendar(id, titulo, descricao, imagem) {
+    // verifica se já existe
+    let secao = document.getElementById(id);
+    if (secao) return secao;
+
+    secao = document.createElement("section");
+    secao.id = id;
+    secao.className = "tab-content";
+    secao.style.padding = "2rem";
+    secao.style.textAlign = "center";
+    secao.style.maxWidth = "800px";
+    secao.style.margin = "0 auto";
+
+    secao.innerHTML = `
+      <img src="${imagem}" 
+           alt="Imagem da vivência"
+           style="width:100%;max-height:260px;object-fit:cover;border-radius:16px;margin-bottom:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+      <h2 style="margin-bottom:0.5rem;">${titulo}</h2>
+      <p class="muted" style="margin-bottom:1.5rem;">${descricao}</p>
+      <div class="project-info" style="text-align:left;">
+        <h3>Objetivos</h3>
+        <ul>
+          <li>Preservar memória e saberes comunitários</li>
+          <li>Registrar vivências e atividades culturais</li>
+          <li>Promover intercâmbio e aprendizado comunitário</li>
+        </ul>
+        <h3>Atividades e Conteúdos</h3>
+        <ul>
+          <li>Oficinas e rodas de histórias</li>
+          <li>Exposições e registros multimídia</li>
+          <li>Intercâmbio cultural e gastronômico</li>
+        </ul>
+        <h3>Parceiros</h3>
+        <ul>
+          <li>Associações Quilombolas de Iporanga</li>
+          <li>IFSP – Campus Registro</li>
+          <li>Instituto Socioambiental (ISA)</li>
+          <li>Fundação Cultural Palmares</li>
+        </ul>
+      </div>
+      <div class="project-actions" style="margin-top:1.5rem;"></div>
+      <button class="btn outline voltar-projeto" style="margin-top:1rem;">⬅ Voltar</button>
+    `;
+
+    // botão de agendar com formulário
+    const btnAgendar = document.createElement("button");
+    btnAgendar.className = "btn primary";
+    btnAgendar.textContent = "Agendar";
+    btnAgendar.addEventListener("click", () => {
+      const form = document.createElement("form");
+      form.className = "book-form";
+      form.style.marginTop = "1rem";
+      form.innerHTML = `
+        <label>Nome<input required name="nome" placeholder="Seu nome"></label>
+        <label>Email<input type="email" name="email" placeholder="email@exemplo.com" required></label>
+        <button class="btn primary" type="submit">Enviar solicitação</button>
+      `;
+      const actions = secao.querySelector(".project-actions");
+      actions.innerHTML = "";
+      actions.appendChild(form);
+
+      form.addEventListener("submit", ev => {
+        ev.preventDefault();
+        actions.innerHTML = '<p>Solicitação enviada! A equipe entrará em contato para confirmar detalhes.</p>';
+      });
+    });
+    secao.querySelector(".project-actions").appendChild(btnAgendar);
+
+    // botão voltar
+    secao.querySelector(".voltar-projeto").addEventListener("click", () => {
+      document.querySelectorAll(".tab-content").forEach(s => s.classList.remove("active"));
+      document.getElementById("vivencias").classList.add("active");
+      main.scrollIntoView({ behavior: "smooth" });
+    });
+
+    main.appendChild(secao);
+    return secao;
+  }
+
+  // função para ativar uma seção
+  function ativarSecao(id) {
+    document.querySelectorAll(".tab-content").forEach(s => s.classList.remove("active"));
+    const secao = document.getElementById(id);
+    if (secao) secao.classList.add("active");
+    main.scrollIntoView({ behavior: "smooth" });
+  }
+
+  // adiciona evento para cada botão Agendar da seção Vivências
+  document.querySelectorAll("#vivencias .btn[data-open='book']").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".vivencia-card") || btn.closest(".viv-card");
+      const titulo = btn.dataset.title || card.querySelector("h3, h4")?.textContent || "Vivência";
+      const descricao = card.querySelector("p")?.textContent || "Descrição não disponível.";
+      const imagem = card.querySelector("img")?.src || "https://images.unsplash.com/photo-1522204507491-71d19063b6c2?w=1000";
+      const idSecao = "agendar-" + titulo.toLowerCase().replace(/\s+/g, "-");
+
+      criarSecaoAgendar(idSecao, titulo, descricao, imagem);
+      ativarSecao(idSecao);
+    });
+  });
+});
+</script> 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
