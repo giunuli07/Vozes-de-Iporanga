@@ -28,6 +28,7 @@
         <ul id="navList" class="nav-list">
           <li><button class="tab-btn active" data-tab="home">Home</button></li>
           <li><button class="tab-btn" data-tab="historias">🎥 Histórias</button></li>
+          <li><button class="tab-btn" data-tab="produtos">🛒 Produtos</button></li>
           <li><button class="tab-btn" data-tab="saberes">🌿 Saberes</button></li>
           <li><button class="tab-btn" data-tab="receitas">🍚 Receitas</button></li>
           <li><button class="tab-btn" data-tab="vivencias">🗺️ Vivências</button></li>
@@ -153,6 +154,40 @@
 
         </div>
       </section>
+<section id="produtos" class="secao-produtos">
+  <h2>🛒 Produtos da Comunidade</h2>
+  <p>Confira os produtos artesanais e alimentos tradicionais feitos pelas famílias do quilombo.</p>
+
+  <div class="produtos-cards">
+    <div class="produto-card">
+      <img src="imagens/produto1.jpg" alt="Cestaria de Palha">
+      <h4>Cestaria de Palha</h4>
+      <p>Artesanato feito com fibras naturais.</p>
+      <p class="preco">R$ 50,00</p>
+      <button class="detalhes-btn" onclick="abrirDetalhe('Cestaria de Palha','imagens/produto1.jpg','Artesanato feito com fibras naturais.','R$ 50,00')">🔍 Detalhes</button>
+      <button class="comprar-btn" onclick="comprarProduto('Cestaria de Palha')">🛒 Comprar</button>
+    </div>
+
+    <div class="produto-card">
+      <img src="imagens/produto2.jpg" alt="Bolo de Mandioca">
+      <h4>Bolo de Mandioca</h4>
+      <p>Delicioso bolo caseiro da região.</p>
+      <p class="preco">R$ 20,00</p>
+      <button class="detalhes-btn" onclick="abrirDetalhe('Bolo de Mandioca','imagens/produto2.jpg','Delicioso bolo caseiro da região.','R$ 20,00')">🔍 Detalhes</button>
+      <button class="comprar-btn" onclick="comprarProduto('Bolo de Mandioca')">🛒 Comprar</button>
+    </div>
+
+    <div class="produto-card">
+      <img src="imagens/produto3.jpg" alt="Pano de Renda">
+      <h4>Pano de Renda</h4>
+      <p>Renda artesanal típica da comunidade.</p>
+      <p class="preco">R$ 35,00</p>
+      <button class="detalhes-btn" onclick="abrirDetalhe('Pano de Renda','imagens/produto3.jpg','Renda artesanal típica da comunidade.','R$ 35,00')">🔍 Detalhes</button>
+      <button class="comprar-btn" onclick="comprarProduto('Pano de Renda')">🛒 Comprar</button>
+    </div>
+  </div>
+</section>
+
 
       <!-- SABERES -->
       <section id="saberes" class="tab-content">
@@ -448,6 +483,7 @@
             </div>
           </article>
         </div>
+        <div id="midiaOverlay" class="midia-overlay">
       </section>
       <!-- SEÇÃO DE ÁUDIOS -->
 <section id="radio-audios" class="tab-content" style="display:none;">
