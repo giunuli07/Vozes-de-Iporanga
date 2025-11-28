@@ -579,26 +579,3 @@ body{
     grid-template-columns: 1fr;
   }
 }
-
-/* ======== IMAGENS DOS CARDS ======== */
-.card img {
-  width: 100%;          /* ocupa toda a largura do card */
-  height: auto;         /* mantém proporção original */
-  object-fit: cover;    /* corta a imagem, mantendo proporção sem distorcer */
-  border-radius: 8px 8px 0 0; /* cantos arredondados superiores */
-  display: block;
-}
-
-/* ======== AJUSTE PARA TABLETS ======== */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .card img {
-    max-height: 180px;  /* limita altura máxima da imagem */
-  }
-}
-
-/* ======== CELULARES ======== */
-@media (max-width: 767px) {
-  .card img {
-    max-height: 160px;  /* altura menor para telas pequenas */
-  }
-}
